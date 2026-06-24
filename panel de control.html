@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Datos & Logística</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Rejilla de Indicadores Clave KPI */
+        .kpi-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .kpi-box {
+            background: white; padding: 1.5rem; border-radius: 0.5rem;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.01);
+        }
+        .kpi-box.green { border-left-color: var(--accent-color); }
+        .kpi-box.amber { border-left-color: #f59e0b; }
+        .kpi-label { font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); font-weight: bold; }
+        .kpi-number { font-size: 1.8rem; font-weight: 800; margin-top: 0.4rem; color: var(--primary-color); }
+
+        /* Estructura en 2 Columnas para Control de Inventario */
+        .workspace-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 850px) { .workspace-split { grid-template-columns: 1fr; } }
+
+        .card-panel {
+            background: white; padding: 2rem; border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        /* Formularios */
+        .form-row { margin-bottom: 1.2rem; }
+        .form-row label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%; padding: 0.65rem; border: 1px solid #cbd5e1;
+            border-radius: 0.375rem; font-family: inherit; font-size: 0.9rem;
+        }
+        
+        .btn-submit-sheets {
+            background-color: var(--accent-color);
+            color: white; border: none; width: 100%; padding: 0.85rem;
+            font-size: 1rem; font-weight: 700; border-radius: 0.375rem;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .btn-submit-sheets:hover { background-color: #059669; }
+
+        /* Tabla de registros */
+        .logs-table {
+            width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left;
+        }
+        .logs-table th, .logs-table td { padding: 0.75rem; border-bottom: 1px solid var(--border-color); }
+        .logs-table th { background: #f8fafc; color: var(--primary-color); }
+        
+        .status-badge {
+            padding: 0.2rem 0.5rem; border-radius: 0.25rem; font-weight: bold; font-size: 0.75rem;
+        }
+        .badge-delivered { background-color: #d1fae5; color: #065f46; }
+        .badge-maintenance { background-color: #fef3c7; color: #92400e; }
+        .badge-available { background-color: #dbeafe; color: #1e40af; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="datos.html" class="active">Datos</a></li>
+                <li><a href="ofertas.html">Ofertas</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="carrito.html" class="cart-link">Carrito <span class="cart-counter" id="menuCartCount">0</span></a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Panel de Indicadores y Resumen Operativo</h2>
+        
+        <div class="kpi-container">
+            <div class="kpi-box">
+                <div class="kpi-label">Total Productos Registrados</div>
+                <div class="kpi-number">156 Equipos</div>
+            </div>
+            <div class="kpi-box green">
+                <div class="kpi-label">Ventas del Día / Semana</div>
+                <div class="kpi-number">$38,450 MXN</div>
+            </div>
+            <div class="kpi-box amber">
+                <div class="kpi-label">Pedidos Pendientes</div>
+                <div class="kpi-number">9 Órdenes</div>
+            </div>
+            <div class="kpi-box">
+                <div class="kpi-label">Clientes Activos</div>
+                <div class="kpi-number">428 Usuarios</div>
+            </div>
+        </div>
+
+        <div class="workspace-split">
+            <div class="card-panel">
+                <h3>Registro Logístico de Dispositivos</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Sincronización directa en tiempo real con la base de datos centralizada de Google.</p>
+                
+                <form id="equipmentForm">
+                    <div class="form-row">
+                        <label>ID Equipo</label>
+                        <input type="text" id="idEquipo" value="EQ-001" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Nombre / Modelo</label>
+                        <input type="text" id="nombreModelo" value="Laptop Lenovo IdeaPad 3" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Usuario / Empleado</label>
+                        <input type="text" id="usuarioEmpleado" value="Juan Pérez" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Fecha de Entrega</label>
+                        <input type="date" id="fechaEntrega" value="2026-05-13" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Fecha de Devolución</label>
+                        <input type="date" id="fechaDevolucion" value="2026-08-28" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Estado del Equipo</label>
+                        <select id="estado">
+                            <option value="Entregado">Entregado</option>
+                            <option value="En reparación">En reparación</option>
+                            <option value="Disponible">Disponible</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>Notas / Observaciones</label>
+                        <textarea id="notas" rows="3">Incluye cargador original ETC.</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit-sheets">Guardar en Google Sheets</button>
+                </form>
+            </div>
+
+            <div class="card-panel">
+                <h3>Notificaciones y Estado de Inventario</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Alertas automáticas del sistema local.</p>
+                
+                <div style="background-color: #fee2e2; border-left: 4px solid var(--danger-color); padding: 0.75rem; font-size: 0.8rem; margin-bottom: 1.5rem; color: #991b1b; border-radius: 0.25rem;">
+                    <strong>[Alerta Stock Bajo]:</strong> Quedan menos de 3 unidades del componente 'Memoria DDR5'.
+                </div>
+
+                <table class="logs-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Modelo</th>
+                            <th>Asignado A</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td>EQ-001</td>
+                            <td>Lenovo IdeaPad 3</td>
+                            <td>Juan Pérez</td>
+                            <td><span class="status-badge badge-delivered">Entregado</span></td>
+                        </tr>
+                        <tr>
+                            <td>EQ-005</td>
+                            <td>MacBook Air M3</td>
+                            <td>Diana Flores</td>
+                            <td><span class="status-badge badge-available">Disponible</span></td>
+                        </tr>
+                        <tr>
+                            <td>EQ-009</td>
+                            <td>Asus ROG Strix</td>
+                            <td>Marcos Ruiz</td>
+                            <td><span class="status-badge badge-maintenance">En reparación</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Gestiona tus Datos. Interfaz conectada de forma remota a Google Workspace.</p>
+    </footer>
+
+    <script>
+        // Sincronizar badge del menú
+        const carrito = JSON.parse(localStorage.getItem('tienda_carrito')) || [];
+        document.getElementById('menuCartCount').textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+
+        // PEGA AQUÍ LA URL COMPLETA que copiaste al finalizar el PASO 1 de Google Apps Script
+        const WEB_APP_URL = "PASAR_AQUÍ_TU_URL_DE_APPS_SCRIPT";
+
+        document.getElementById('equipmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                idEquipo: document.getElementById('idEquipo').value,
+                nombreModelo: document.getElementById('nombreModelo').value,
+                usuarioEmpleado: document.getElementById('usuarioEmpleado').value,
+                fechaEntrega: document.getElementById('fechaEntrega').value,
+                fechaDevolucion: document.getElementById('fechaDevolucion').value,
+                estado: document.getElementById('estado').value,
+                notas: document.getElementById('notas').value
+            };
+
+            // Simulación fallback por si no se ha configurado la URL real de Google Apps Script
+            if(WEB_APP_URL === "PASAR_AQUÍ_TU_URL_DE_APPS_SCRIPT") {
+                alert("Simulación de guardado local exitoso:\nDatos formateados y listos para Google Sheets.\n\nPara conectarlo de verdad, pega tu enlace de Apps Script en la línea 127 del archivo datos.html.");
+                agregarNuevaFilaFicticia(formData);
+                return;
+            }
+
+            // Envío asíncrono real a la API de la hoja de cálculo
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                mode: "no-cors",
+                cache: "no-cache",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+            .then(() => {
+                alert("¡Éxito total! Registro enviado a la hoja de cálculo de Google Sheets de manera segura.");
+                agregarNuevaFilaFicticia(formData);
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Fallo crítico en la comunicación con la API de Google.");
+            });
+        });
+
+        function agregarNuevaFilaFicticia(data) {
+            const tbody = document.getElementById('tableBody');
+            const tr = document.createElement('tr');
+            let badgeStyle = "badge-available";
+            if(data.estado === "Entregado") badgeStyle = "badge-delivered";
+            if(data.estado === "En reparación") badgeStyle = "badge-maintenance";
+
+            tr.innerHTML = `
+                <td>${data.idEquipo}</td>
+                <td>${data.nombreModelo}</td>
+                <td>${data.usuarioEmpleado}</td>
+                <td><span class="status-badge ${badgeStyle}">${data.estado}</span></td>
+            `;
+            tbody.insertBefore(tr, tbody.firstChild);
+        }
+    </script>
+</body>
+</html>
