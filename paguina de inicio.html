@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestiona tus Datos | Equipos Electrónicos</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Banner de Tecnología e Inteligencia Artificial */
+        .hero-banner {
+            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
+                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            height: 380px;
+            border-radius: 0.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+        .hero-banner h1 { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800; }
+        .hero-banner p { font-size: 1.15rem; max-width: 650px; color: #cbd5e1; margin-bottom: 1.5rem; }
+        .btn-buy-now {
+            background-color: var(--secondary-color);
+            color: white; padding: 0.8rem 2rem; text-decoration: none;
+            font-weight: bold; border-radius: 0.375rem; transition: background 0.2s;
+        }
+        .btn-buy-now:hover { background-color: #1d4ed8; }
+
+        /* Cuadrícula de Productos */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 0.625rem;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+        }
+        .product-image { width: 100%; height: 230px; object-fit: cover; }
+        .product-details { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-name { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 0.5rem; font-weight: 700; }
+        .product-description { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; flex-grow: 1; }
+        
+        /* Ficha Técnica Requerida */
+        .specs-box {
+            background-color: #f1f5f9;
+            padding: 0.85rem;
+            border-radius: 0.375rem;
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+        .price-tag { font-size: 1.6rem; font-weight: 800; color: var(--secondary-color); margin-bottom: 1.25rem; }
+        
+        .btn-cart-add {
+            background-color: var(--primary-color);
+            color: white; border: none; padding: 0.75rem;
+            font-weight: 600; border-radius: 0.375rem; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-cart-add:hover { background-color: var(--secondary-color); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Inicio</a></li>
+                <li><a href="datos.html">Datos</a></li>
+                <li><a href="ofertas.html">Ofertas</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="carrito.html" class="cart-link">Carrito <span class="cart-counter" id="menuCartCount">0</span></a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero-banner">
+            <h1>Bienvenido a mi página web</h1>
+            <p>"Somos una tienda especializada en computadoras y dispositivos electrónicos, puedes llevar un control de tus compras de forma ágil y moderna."</p>
+            <a href="#productos" class="btn-buy-now">Comprar Ahora</a>
+        </section>
+
+        <h2 id="productos">Catálogo de Dispositivos Disponibles</h2>
+        
+        <div class="catalog-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=500&q=80" alt="Laptop Lenovo IdeaPad 3 Real" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-name">Laptop Lenovo IdeaPad 3</h3>
+                    <p class="product-description">Equipada con procesador AMD Ryzen 5, 16 GB de memoria RAM de alta velocidad y almacenamiento masivo en disco ultra sólido SSD de 512 GB. Perfecta para productividad y flujos de desarrollo.</p>
+                    
+                    <div class="specs-box">
+                        <strong>ID Equipo:</strong> EQ-001<br>
+                        <strong>Capacidad:</strong> 512 GB SSD / 16 GB RAM<br>
+                        <strong>Color:</strong> Gris Platino Metálico<br>
+                        <strong>Reseña:</strong> ★★★★☆ (4.5/5) Excelente relación calidad-precio.<br>
+                        <strong>Disponibilidad:</strong> 12 Unidades disponibles (En Stock)
+                    </div>
+                    
+                    <div class="price-tag">$11,999 MXN</div>
+                    <button class="btn-cart-add" onclick="agregarArticulo('EQ-001', 'Laptop Lenovo IdeaPad 3', 11999, 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=500&q=80')">Agregar al carrito</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80" alt="Smartphone Edge Pro" class="product-image">
+                <div class="product-details">
+                    <h3 class="product-name">Smartphone Edge Pro 5G</h3>
+                    <p class="product-description">Dispositivo móvil de gama alta con pantalla OLED fluida de 6.7 pulgadas, sistema fotográfico avanzado de 108 Megapíxeles y batería de larga duración con carga inteligente.</p>
+                    
+                    <div class="specs-box">
+                        <strong>ID Equipo:</strong> EQ-002<br>
+                        <strong>Capacidad:</strong> 256 GB Almacenamiento<br>
+                        <strong>Color:</strong> Negro Espejo Cromo<br>
+                        <strong>Reseña:</strong> ★★★★★ (4.9/5) Rendimiento de cámara excepcional.<br>
+                        <strong>Disponibilidad:</strong> 8 Unidades disponibles
+                    </div>
+                    
+                    <div class="price-tag">$8,499 MXN</div>
+                    <button class="btn-cart-add" onclick="agregarArticulo('EQ-002', 'Smartphone Edge Pro 5G', 8499, 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=500&q=80')">Agregar al carrito</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Gestiona tus Datos. Desarrollado profesionalmente para GitHub Pages.</p>
+    </footer>
+
+    <script>
+        // Lógica persistente del carrito usando localStorage para conectar las páginas
+        let carrito = JSON.parse(localStorage.getItem('tienda_carrito')) || [];
+
+        function refreshBadge() {
+            const badge = document.getElementById('menuCartCount');
+            const total = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+            badge.textContent = total;
+        }
+
+        function agregarArticulo(id, nombre, precio, img) {
+            const existe = carrito.find(prod => prod.id === id);
+            if (existe) {
+                existe.cantidad++;
+            } else {
+                carrito.push({ id, nombre, precio, img, cantidad: 1 });
+            }
+            localStorage.setItem('tienda_carrito', JSON.stringify(carrito));
+            refreshBadge();
+            alert(`¡${nombre} se agregó correctamente al carrito!`);
+        }
+
+        // Carga inicial del contador
+        refreshBadge();
+    </script>
+</body>
+</html>
